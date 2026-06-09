@@ -8,6 +8,36 @@ class Solution(object):
         if l < 2:
             return 0
         
+        curr_cand = s[0]
+        curr_count = 1
+        prev_count = 0
+        tl_count = 0
+
+        for i in range(1, l):
+            if s[i] == curr_cand:
+                curr_count += 1
+            else:
+                #swap detected
+                curr_cand = s[i]
+                tl_count += min(prev_count, curr_count)
+                prev_count = curr_count
+                curr_count = 1
+        
+        tl_count += min(prev_count, curr_count)
+        
+        return tl_count
+        
+
+class Solution(object):
+    def countBinarySubstrings(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        l = len(s)
+        if l < 2:
+            return 0
+        
         boundary_arrays = []
         curr_char = s[0]
         curr_count = 1
