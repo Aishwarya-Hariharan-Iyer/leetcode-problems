@@ -19,4 +19,29 @@ class Solution(object):
                     tracker[s[j]] = 1
                     best_count[i] = best_count[i] + 1
         return max(best_count)
+    
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        l = len(s)
+        if l <= 1:
+            return l
+        lp = 0
+        rp = 0
+        best_len = 0
+        curr_len = 0
+        recent_chars = dict()
+        while rp < l:
+            if recent_chars.get(s[rp], -1) == -1: #unique so advance
+                curr_len += 1
+            else:
+                last_pos = recent_chars.get(s[rp])
+                if last_pos >= lp:
+                    lp = last_pos + 1
+                curr_len = rp - lp + 1
+            best_len = max(best_len, curr_len)
+            recent_chars[s[rp]] = rp
+            rp += 1
+
+        return best_len
+
 
